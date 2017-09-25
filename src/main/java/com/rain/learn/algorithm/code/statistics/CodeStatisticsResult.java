@@ -42,13 +42,13 @@ public class CodeStatisticsResult {
         this.totalResult = totalResult;
     }
 
-    public void printResult() {
+    public void printResult(boolean complete) {
         System.out.println("Root path is: " + totalResult.getFile().getAbsolutePath());
         System.out.println("Total file number is: " + totalFiles);
         System.out.println("Total result is: [TotalLines=" + totalResult.getTotalLines() + ", CodeLines="
                 + totalResult.getCodeLines() + ", CommentLines=" + totalResult.getCommentLines() + ", BlankLines="
                 + totalResult.getBlankLines() + "]");
-        if (subResults != null && !subResults.isEmpty()) {
+        if (complete && subResults != null && !subResults.isEmpty()) {
             System.out.println("Sub result:");
             System.out.println();
             for (CodeCountResult ccr : subResults) {

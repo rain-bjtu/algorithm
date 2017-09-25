@@ -201,17 +201,19 @@ public class CodeCountDispatcher {
         CodeCountDispatcher ccd = new CodeCountDispatcher(executorService, new File("/home/test/test"));
         ccd.registerCodeCounter(CommonCodeCounter.class);
 
-        System.out.println("---begin---");
-        long begin = System.currentTimeMillis();
-        FutureTask<CodeStatisticsResult> f = ccd.dispatches();
-        f.run();
-        CodeStatisticsResult csr = f.get();
-        long end = System.currentTimeMillis();
+        for (int i = 0; i < 100; i++) {
+            System.out.println("---begin---");
+            long begin = System.currentTimeMillis();
+            FutureTask<CodeStatisticsResult> f = ccd.dispatches();
+            f.run();
+            CodeStatisticsResult csr = f.get();
+            long end = System.currentTimeMillis();
+
+            csr.printResult(false);
+            System.out.println("---finish---");
+            System.out.println("Time taken: " + (end - begin));
+        }
 
         executorService.shutdown();
-
-        csr.printResult();
-        System.out.println("---finish---");
-        System.out.println("Time taken: " + (end - begin));
     }
 }
